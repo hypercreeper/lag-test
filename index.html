@@ -1,5 +1,5 @@
 <html>
-<input id="d"><button onclick="setInterval(startTimer, 1000);">Start Timer</button><br>
+<input id="d"><button id="b" onclick="setInterval(startTimer, 1000); document.getElementById('b').disabled = true;">Start Timer</button><br>
 <p id="p"></p>
 <p id="r"></p>
 <div>fps: <span id="fps"></span></div>
