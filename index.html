@@ -1,0 +1,62 @@
+<html>
+<input id="d"><button onclick="setInterval(startTimer, 1000);">Start Timer</button><br>
+<p id="p"></p>
+<p id="r"></p>
+<div>fps: <span id="fps"></span></div>
+<h3 id="t"></h3>
+<script>
+// shim layer with setTimeout fallback
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          window.ieRequestAnimationFrame     ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
+var fpsElement = document.getElementById("fps");
+
+var then = Date.now() / 1000;  // get time in seconds
+var render = function() {
+    var now = Date.now() / 1000;  // get time in seconds
+    
+    // compute time since last frame
+    var elapsedTime = now - then;
+    then = now;
+    
+    // compute fps
+    var fps = 1 / elapsedTime;
+    fpsElement.innerText = fps.toFixed(0);  
+    
+    requestAnimFrame(render);
+};
+render();
+
+</script>
+<script>
+document.getElementById('r').innerHTML = "Current installed RAM: " + navigator.deviceMemory + "GB";
+function checklength() {
+var d = document.getElementById("d");
+var p = document.getElementById("p");
+p.innerHTML = d.value.length + " characters";
+}
+var s = 0;
+var m = 0;
+var h = 0;
+function startTimer() {
+var g = document.getElementById("t");
+g.innerHTML = h + ":" + m + ":" + s;
+s++;
+if(s > 59) {
+m++;
+s = 0;
+}
+if(m > 59) {
+h++;
+m = 0;
+}
+}
+setInterval(checklength, 10);
+</script>
