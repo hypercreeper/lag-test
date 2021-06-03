@@ -1,9 +1,15 @@
-<html>
-<input id="d"><button id="b" onclick="setInterval(startTimer, 1000); document.getElementById('b').disabled = true;">Start Timer</button><br>
+<html style="font-size: 20px;">
+<script>
+var sas = "";
+var slt = "";
+</script>
+<input id="d"><button id="b" onclick="sas = setInterval(startTimer, 1000); document.getElementById('b').disabled = true; startTimer();">Start Timer</button><button id="sl" onclick="document.getElementById('sl').disabled = true; document.getElementById('st').disabled = false; slt = setInterval(startLagTest, 10);">Start Lag Test</button><button id="st" onclick="stopLagTest()" disabled>Stop Lag Test</button><input type="number" placeholder="Enter character count" id="ints"><br>
 <p id="p"></p>
 <p id="r"></p>
+<p id="lag"></p>
 <div>fps: <span id="fps"></span></div>
 <h3 id="t"></h3>
+<p id="e"></p>
 <script>
 // shim layer with setTimeout fallback
 window.requestAnimFrame = (function(){
@@ -59,4 +65,35 @@ m = 0;
 }
 }
 setInterval(checklength, 10);
+var ms = 'MMM';
+function checkChars() {
+document.getElementById("lag").innerHTML = "Lag Interval: " + ms.length + " 'M'";
+}
+setInterval(checkChars, 10);
+
+function checkint() {
+ms = "M".repeat(document.getElementById("ints").value);
+}
+setInterval(checkint, 10);
+
+function startLagTest() {
+document.getElementById('d').value = document.getElementById('d').value.replace('', ms);
+document.getElementById("b").click();
+}
+function stopLagTest() {
+clearInterval(slt);
+clearInterval(sas);
+s = 0;
+m = 0;
+h = 0;
+var lastREC = fpsElement.textContent;
+var lastCharREC = document.getElementById("d").value.length;
+document.getElementById("b").disabled = false;
+document.getElementById("sl").disabled = false;
+document.getElementById("st").disabled = true;
+var lastTimeREC = document.getElementById("t").textContent;
+var lastCharCREC = document.getElementById("ints").value;
+document.getElementById("d").value = "";
+document.getElementById("e").innerHTML = "your computer was at " + lastREC + " FPS for " + lastTimeREC + " at " + lastCharCREC + " 'm' with " + lastCharREC + " characters recorded";
+}
 </script>
