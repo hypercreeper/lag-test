@@ -3,7 +3,51 @@
 var sas = "";
 var slt = "";
 </script>
-<input id="d"><button id="b" onclick="sas = setInterval(startTimer, 1000); document.getElementById('b').disabled = true; startTimer();">Start Timer</button><button id="sl" onclick="document.getElementById('sl').disabled = true; document.getElementById('st').disabled = false; slt = setInterval(startLagTest, 10);">Start Lag Test</button><button id="st" onclick="stopLagTest()" disabled>Stop Lag Test</button><input type="number" placeholder="Enter character count" id="ints"><br>
+<style>
+.white {
+background-color: white;
+color: black;
+}
+.blue {
+background-color: blue;
+color: white;
+}
+.lime {
+background-color: lime;
+color: black;
+}
+.yellow {
+background-color: yellow;
+color: black;
+}
+.red {
+background-color: red;
+color: white;
+}
+.purple {
+background-color: purple;
+color: white;
+}
+.orange {
+background-color: orange;
+color: black;
+}
+.black {
+background-color: black;
+color: white;
+}
+</style>
+
+<input id="d"><button id="b" onclick="sas = setInterval(startTimer, 1000); document.getElementById('b').disabled = true; startTimer();">Start Timer</button><button id="sl" onclick="document.getElementById('sl').disabled = true; document.getElementById('st').disabled = false; slt = setInterval(startLagTest, 10);">Start Lag Test</button><button id="st" onclick="stopLagTest()" disabled>Stop Lag Test</button><select id="ints">
+<option value="1" class="white">1m - Super Light</option>
+<option value="10" class="blue">10m - Medium Light</option>
+<option value="100" class="lime">100m - Light</option>
+<option value="1000" class="yellow">1000m - Medium</option>
+<option value="10000" class="red">10000m - SUPER HEAVY!</option>
+<option value="100000" class="purple">100000m - seriously good computers ONLY!</option>
+<option value="1000000" class="orange">1000000m - No computer can survive this >:)</option>
+<option value="10000000" class="black">10000000m - <strong>EXTREME!!!</strong></option>
+</select><input type="number" hidden placeholder="Enter character count" id="ints2"><br>
 <p id="p"></p>
 <p id="r"></p>
 <p id="lag"></p>
@@ -72,7 +116,8 @@ document.getElementById("lag").innerHTML = "Lag Interval: " + ms.length + " 'M'"
 setInterval(checkChars, 10);
 
 function checkint() {
-ms = "M".repeat(document.getElementById("ints").value);
+ms = "M".repeat(document.getElementById("ints").selectedOptions[0].value);
+document.getElementById("ints").className = document.getElementById("ints").selectedOptions[0].className;
 }
 setInterval(checkint, 10);
 
@@ -92,7 +137,7 @@ document.getElementById("b").disabled = false;
 document.getElementById("sl").disabled = false;
 document.getElementById("st").disabled = true;
 var lastTimeREC = document.getElementById("t").textContent;
-var lastCharCREC = document.getElementById("ints").value;
+var lastCharCREC = document.getElementById("ints").selectedOptions[0].value;
 document.getElementById("d").value = "";
 document.getElementById("e").innerHTML = "your computer was at " + lastREC + " FPS for " + lastTimeREC + " at " + lastCharCREC + " 'm' with " + lastCharREC + " characters recorded";
 }
