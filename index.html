@@ -38,7 +38,7 @@ color: white;
 }
 </style>
 
-<input id="d"><button id="b" onclick="sas = setInterval(startTimer, 1000); document.getElementById('b').disabled = true; startTimer();">Start Timer</button><button id="sl" onclick="document.getElementById('sl').disabled = true; document.getElementById('st').disabled = false; slt = setInterval(startLagTest, 10);">Start Lag Test</button><button id="st" onclick="stopLagTest()" disabled>Stop Lag Test</button><select id="ints">
+<input id="d"><button id="b" onclick="sas = setInterval(startTimer, 1000); document.getElementById('b').disabled = true; startTimer();" hidden>Start Timer</button><button id="sl" onclick="document.getElementById('sl').disabled = true; document.getElementById('st').disabled = false; slt = setInterval(startLagTest, 10);">Start Lag Test</button><button id="st" onclick="stopLagTest()" disabled>Stop Lag Test</button><select id="ints">
 <option value="1" class="white">1m - Super Light</option>
 <option value="10" class="blue">10m - Medium Light</option>
 <option value="100" class="lime">100m - Light</option>
@@ -53,7 +53,7 @@ color: white;
 <p id="lag"></p>
 <div>fps: <span id="fps"></span></div>
 <h3 id="t"></h3>
-<p id="e"></p>
+<h2 style="text-align: center" id="e"></h2>
 <script>
 // shim layer with setTimeout fallback
 window.requestAnimFrame = (function(){
@@ -131,7 +131,7 @@ clearInterval(sas);
 s = 0;
 m = 0;
 h = 0;
-var lastREC = fpsElement.textContent;
+var lastFPSREC = fpsElement.textContent;
 var lastCharREC = document.getElementById("d").value.length;
 document.getElementById("b").disabled = false;
 document.getElementById("sl").disabled = false;
@@ -139,6 +139,20 @@ document.getElementById("st").disabled = true;
 var lastTimeREC = document.getElementById("t").textContent;
 var lastCharCREC = document.getElementById("ints").selectedOptions[0].value;
 document.getElementById("d").value = "";
-document.getElementById("e").innerHTML = "your computer was at " + lastREC + " FPS for " + lastTimeREC + " at " + lastCharCREC + " 'm' with " + lastCharREC + " characters recorded";
+document.getElementById("e").innerHTML = "REPORT";
+document.getElementById("e").appendChild(document.createElement("br"));
+document.getElementById("e").appendChild(document.createElement("br"));
+document.getElementById("e").innerHTML += "your computer was at " + lastFPSREC + " FPS for " + lastTimeREC + " at " + lastCharCREC + " 'm' with " + lastCharREC + " characters recorded";
+document.getElementById("e").appendChild(document.createElement("br"));
+document.getElementById("e").appendChild(document.createElement("br"));
+if(lastFPSREC < 16) {
+document.getElementById("e").innerHTML += "Your device was not able to withstand this much load, do not use your device for this much load for long periods of time, use apps the have less strain on your CPU and keep minimal amounts of apps open. ";
+}
+if(lastFPSREC > 15 && lastFPSREC < 31) {
+document.getElementById("e").innerHTML += "Your device somewhat withstanded this level of stress but if you want a smoother, more seemless experience, put less strain on your CPU by keeping only one or two apps open. ";
+}
+if(lastFPSREC >= 31) {
+document.getElementById("e").innerHTML += "Your device withstanded this level smoothly, it does not require action. ";
+}
 }
 </script>
